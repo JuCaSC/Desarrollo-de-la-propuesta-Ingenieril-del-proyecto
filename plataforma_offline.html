@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plataforma Educativa Offline</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #34495e;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 1em;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    nav button:hover, nav button.active {
+      background-color: #2c3e50;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .module {
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #219150;
+    }
+
+    #status {
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .question {
+      margin-top: 10px;
+      padding: 10px;
+      background: #ecf0f1;
+      border-left: 4px solid #27ae60;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Plataforma Educativa Offline</h1>
+    <p>Contenido interactivo y actualizable para comunidades vulnerables</p>
+  </header>
+
+  <nav>
+    <button class="active" onclick="cambiarTab('inicio')">Inicio</button>
+    <button onclick="cambiarTab('contenido')">Contenidos</button>
+    <button onclick="cambiarTab('evaluacion')">Evaluaciones</button>
+  </nav>
+
+  <div class="container">
+    <div id="inicio" class="module">
+      <h2>Bienvenido</h2>
+      <p>Esta plataforma permite acceder a contenidos educativos sin conexión, con capacidad de actualizarse mediante inteligencia artificial cuando haya conectividad disponible.</p>
+    </div>
+
+    <div id="contenido" class="module" style="display:none;">
+      <h2>📘 Lección de Ciencia</h2>
+      <p id="lesson-content">¿Sabías que el agua cambia de estado con la temperatura? Aprende cómo ocurre este fenómeno en nuestro entorno.</p>
+      <button class="button" onclick="actualizarContenido()">🔄 Actualizar Contenido</button>
+      <p id="status"></p>
+    </div>
+
+    <div id="evaluacion" class="module" style="display:none;">
+      <h2>🧠 Pregunta de Evaluación</h2>
+      <div class="question" id="question-area">
+        Haz clic abajo para generar una pregunta.
+      </div>
+      <button class="button" onclick="generarPregunta()">➕ Nueva Pregunta</button>
+    </div>
+  </div>
+
+  <script>
+    const tabs = ["inicio", "contenido", "evaluacion"];
+
+    function cambiarTab(tabSeleccionada) {
+      tabs.forEach(tab => {
+        document.getElementById(tab).style.display = (tab === tabSeleccionada) ? 'block' : 'none';
+        document.querySelector(`nav button[onclick="cambiarTab('${tab}')"]`).classList.toggle('active', tab === tabSeleccionada);
+      });
+    }
+
+    const contenidos = [
+      "Aprende cómo funciona el ciclo del agua y su impacto en el medio ambiente.",
+      "Explora los tres estados de la materia con ejemplos prácticos.",
+      "Descubre cómo la energía solar puede ser aprovechada incluso en zonas rurales.",
+      "Investiga cómo se cultivan alimentos en climas extremos.",
+      "Conoce tecnologías apropiadas para purificar agua sin electricidad."
+    ];
+
+    const preguntas = [
+      "¿Cuáles son los tres estados del agua y cómo cambian?",
+      "¿Qué beneficios tiene la energía solar en zonas rurales?",
+      "¿Cómo puedes recolectar agua de lluvia de forma segura?",
+      "Explica el ciclo del agua con tus propias palabras.",
+      "¿Qué tecnología conoces que funcione sin electricidad?"
+    ];
+
+    function actualizarContenido() {
+      const nuevoContenido = contenidos[Math.floor(Math.random() * contenidos.length)];
+      document.getElementById("lesson-content").innerText = nuevoContenido;
+      document.getElementById("status").innerText = "✅ Contenido actualizado localmente mediante IA.";
+    }
+
+    function generarPregunta() {
+      const nuevaPregunta = preguntas[Math.floor(Math.random() * preguntas.length)];
+      document.getElementById("question-area").innerText = nuevaPregunta;
+    }
+  </script>
+</body>
+</html>
